@@ -11,13 +11,17 @@ public class QueueADT<E> implements A1Queue{
     public QueueADT(){
         this.array = (E[]) new Object[2];
         this.back = 0;
-        this.front = this.array.length;
+        this.front = array.length;
     }
 
 
     @Override
     public void enqueue(Object element) {
-        
+        E[] temp = (E[]) new Object[array.length * 2];
+        for (int i = 0; i < array.length; i++){
+            
+        }
+
     }
 
     @Override
@@ -27,7 +31,7 @@ public class QueueADT<E> implements A1Queue{
 
     @Override
     public Object peek() {
-        return this.array[front];
+        return array[front];
     }
 
     @Override
