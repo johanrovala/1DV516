@@ -6,27 +6,29 @@ package a1;
 public class QueueADT<E> implements A1Queue{
 
     private E[] array;
-    private int back, front;
+    private int front, total;
 
     public QueueADT(){
-        this.array = (E[]) new Object[2];
-        this.back = 0;
-        this.front = array.length;
+        this.total = 10;
+        this.array = (E[]) new Object[total];
+        this.front = 0;
     }
 
 
     @Override
     public void enqueue(Object element) {
-        E[] temp = (E[]) new Object[array.length * 2];
-        for (int i = 0; i < array.length; i++){
-            
+        if (array.length == total){
+            resize();
         }
-
+        array[front] = (E) element;
+        front++;
     }
 
     @Override
     public Object dequeue() {
-        return null;
+        Object element = array[front];
+        array[front] = null;
+        return element;
     }
 
     @Override
@@ -37,5 +39,13 @@ public class QueueADT<E> implements A1Queue{
     @Override
     public int length() {
         return array.length;
+    }
+
+    public void resize() {
+        E[] tmp = (E[]) new Object[total * 2];
+        for (int i = 0; i < array.length; i++){
+            tmp[i] = array[i];
+        }
+        array = tmp;
     }
 }
