@@ -1,51 +1,125 @@
 package a1;
 
+
 /**
  * Created by johanrovala on 25/09/16.
+ *
+ * Queue ADT.
  */
 public class QueueADT<E> implements A1Queue{
 
-    private E[] array;
-    private int front, total;
+    /*
+     * Variables
+     */
+
+    private Node first;
+    private Node last;
+    private int size;
+
+    /*
+     * Constructor
+     */
 
     public QueueADT(){
-        this.total = 10;
-        this.array = (E[]) new Object[total];
-        this.front = 0;
+        this.first = null;
+        this.last = null;
+        this.size = 0;
     }
 
+    /*
+     * enqueue - Add element to the Queue.
+     */
 
     @Override
     public void enqueue(Object element) {
-        if (array.length == total){
-            resize();
+        if(isEmpty()){
+            last = first = new Node(element);
+        }else{
+            last.next = new Node(element);
+            last = last.next;
         }
-        array[front] = (E) element;
-        front++;
+        size++;
     }
+
+    /*
+     * dequeue - Remove and return first added element of the Queue.
+     */
 
     @Override
     public Object dequeue() {
-        Object element = array[front];
-        array[front] = null;
-        return element;
+        if (isEmpty()) throw new IllegalArgumentException();
+        Object val = first.data;
+        first = first.next;
+        size--;
+        if(isEmpty()) first = null;
+        return val;
     }
+
+    /*
+     * peek - Returns the first element of the Queue.
+     */
 
     @Override
     public Object peek() {
-        return array[front];
+        if (isEmpty()) throw new IllegalArgumentException();
+        return first.data;
     }
+
+    /*
+     * length - Returns length of the Queue.
+     */
 
     @Override
     public int length() {
-        return array.length;
+        return size;
     }
 
-    public void resize() {
-        E[] tmp = (E[]) new Object[total * 2];
-        for (int i = 0; i < array.length; i++){
-            tmp[i] = array[i];
+    /*
+     * isEmpty - Private helper method, checks if the queue is empty.
+     */
+
+    private boolean isEmpty() {
+        return first == null;
+    }
+
+    /*
+     * testPrint - Test method, checks if objects are ordered and added in a correct way.
+     */
+
+    public void testPrint() {
+        Node tmp = first;
+        while (tmp != null){
+            System.out.println(tmp.data);
+            tmp = tmp.next;
         }
-        array = tmp;
+    }
+
+    /*
+     * Test
+     */
+
+    public static void main(String[] args){
+        QueueADT queueADT = new QueueADT();
+
+        queueADT.enqueue("yo");
+        queueADT.enqueue("yo2");
+        queueADT.enqueue("yo3");
+        queueADT.enqueue("yo4");
+        queueADT.enqueue("yo5");
+
+        System.out.println(queueADT.dequeue());
+        System.out.println(queueADT.dequeue());
+        System.out.println(queueADT.dequeue());
+        System.out.println(queueADT.dequeue());
+        System.out.println(queueADT.dequeue());
+
+
+        queueADT.enqueue("yo");
+        queueADT.enqueue("yo2");
+        queueADT.enqueue("yo3");
+        queueADT.enqueue("yo4");
+        queueADT.enqueue("yo5");
+
+        queueADT.testPrint();
     }
 }
