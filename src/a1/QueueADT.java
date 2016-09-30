@@ -122,4 +122,14 @@ public class QueueADT<E> implements A1Queue{
 
         queueADT.testPrint();
     }
+
+    private class Node<E> {
+        public Node next;
+        public Object data;
+
+        public Node(Object o){
+            this.data = o;
+        }
+
+    }
 }

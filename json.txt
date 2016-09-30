@@ -1,0 +1,15 @@
+{
+"example"
+:
+1
+,
+"example_array"
+:
+[
+{
+"hej"
+:
+2
+}
+]
+}

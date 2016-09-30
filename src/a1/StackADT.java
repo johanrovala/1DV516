@@ -8,13 +8,25 @@ package a1;
  */
 public class StackADT implements A1Stack{
 
+    /*
+     * Variables
+     */
+
     private Node first;
     private int size;
+
+    /*
+     * Constructor
+     */
 
     public StackADT(){
         first = null;
         size = 0;
     }
+
+    /*
+     * push - pushes (adds) an element to the top of the stack (this is the first one to be popped, should no more elements be pushed).
+     */
 
     @Override
     public void push(Object element) {
@@ -24,6 +36,10 @@ public class StackADT implements A1Stack{
         size++;
     }
 
+    /*
+     * pop - pops (removes) the first element of the stack (the latest added element).
+     */
+
     @Override
     public Object pop() {
         Object data = first.data;
@@ -32,10 +48,18 @@ public class StackADT implements A1Stack{
         return data;
     }
 
+    /*
+     * peek - returns the value of the first element of the stack.
+     */
+
     @Override
     public Object peek() {
         return first.data;
     }
+
+    /*
+     * size - returns the size of the stack.
+     */
 
     @Override
     public int size() {
@@ -56,5 +80,15 @@ public class StackADT implements A1Stack{
         System.out.println(stackADT.peek());
         System.out.println(stackADT.pop());
         System.out.println(stackADT.peek());
+    }
+
+    private class Node<E> {
+        public Node next;
+        public Object data;
+
+        public Node(Object o){
+            this.data = o;
+        }
+
     }
 }
