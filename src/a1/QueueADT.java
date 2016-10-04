@@ -78,7 +78,7 @@ public class QueueADT<E> implements A1Queue{
      * isEmpty - Private helper method, checks if the queue is empty.
      */
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return first == null;
     }
 
@@ -92,6 +92,17 @@ public class QueueADT<E> implements A1Queue{
             System.out.println(tmp.data);
             tmp = tmp.next;
         }
+    }
+
+    @Override
+    public String toString(){
+        String queue = "";
+        Node tmp = first;
+        while (tmp != null){
+            queue += tmp.data;
+            tmp = tmp.next;
+        }
+        return queue;
     }
 
     /*

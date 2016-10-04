@@ -6,7 +6,7 @@ package a1;
  *
  * Stack ADT
  */
-public class StackADT implements A1Stack{
+public class StackADT<E> implements A1Stack{
 
     /*
      * Variables
@@ -25,7 +25,7 @@ public class StackADT implements A1Stack{
     }
 
     /*
-     * push - pushes (adds) an element to the top of the stack (this is the first one to be popped, should no more elements be pushed).
+     * push() - pushes (adds) an element to the top of the stack (this is the first one to be popped, should no more elements be pushed).
      */
 
     @Override
@@ -37,7 +37,7 @@ public class StackADT implements A1Stack{
     }
 
     /*
-     * pop - pops (removes) the first element of the stack (the latest added element).
+     * pop() - pops (removes) the first element of the stack (the latest added element).
      */
 
     @Override
@@ -49,7 +49,7 @@ public class StackADT implements A1Stack{
     }
 
     /*
-     * peek - returns the value of the first element of the stack.
+     * peek() - returns the value of the first element of the stack.
      */
 
     @Override
@@ -58,7 +58,7 @@ public class StackADT implements A1Stack{
     }
 
     /*
-     * size - returns the size of the stack.
+     * size() - returns the size of the stack.
      */
 
     @Override
