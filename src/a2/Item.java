@@ -9,6 +9,16 @@ public class Item implements A2Item{
     private double transactionval;
     private String date;
 
+    public Item(String performer, double transactionval, String date){
+        this.performer = performer;
+        this.transactionval = transactionval;
+        this.date = date;
+    }
+
+    public Item(){
+
+    }
+
     @Override
     public String getPerformer() {
         return this.performer;
@@ -37,5 +47,10 @@ public class Item implements A2Item{
     @Override
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString(){
+        return this.getPerformer() + " " + this.getTransactionValue() + " " + this.getDate();
     }
 }

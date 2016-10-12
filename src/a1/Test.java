@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 /**
  * Created by johanrovala on 03/10/16.
  *
- * Test - test class for the Main class.
+ * Test - a2test class for the Main class.
  */
 public class Test {
 
