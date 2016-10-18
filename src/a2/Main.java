@@ -9,6 +9,10 @@ import java.util.*;
  */
 public class Main implements A2Main{
 
+    /*
+     * Variables
+     */
+
     private Scanner scanner;
 
     /*
@@ -50,9 +54,17 @@ public class Main implements A2Main{
         return list;
     }
 
+    /*
+     * bubbleSort - basic implementation of bubblesort
+     */
+
     @Override
     public long bubbleSortByTransactionValue(List<A2Item> array) {
         Item temp;
+
+        // For time measuring
+
+        long starttime = System.nanoTime();
 
         if(array.equals(null)){
             throw new NullPointerException("Array is null");
@@ -70,63 +82,84 @@ public class Main implements A2Main{
             }
         }
 
-        return 0;
+
+        // Time spent
+
+        long timeDif = System.nanoTime() - starttime;
+
+
+        return timeDif;
     }
+
+    /*
+     * quickSortByTransactionValue - Calls quickSort with the list, pivot and start point.
+     */
+
 
     @Override
     public long quickSortByTransactionValue(List<A2Item> array) {
+
+        // For time measuring
+
+        long starttime = System.nanoTime();
+
         quickSort(array, array.size()-1, 0);
-        return 0;
+
+        // Time spent
+
+        long timeDif = System.nanoTime() - starttime;
+
+        return timeDif;
     }
+
+    /*
+     * quickSort - calls partition and gets the true position of the pivot. The list is
+     * divided into three parts. [0..q-1], [q] and [q+1...array.size()]
+     *
+     * After the first partition is done, the same procedure is done on the two other lists. This
+     * keeps going until p (the high val) is greater than the low val.
+     */
 
     private void quickSort(List<A2Item> array, int p, int low){
         int q;
         if (p > low){
-            System.out.println("run");
             q = partition(array, p, low);
             quickSort(array, q - 1, low);
             quickSort(array, p, q + 1);
         }
     }
 
+
+    /*
+     * partition - Splits the list into three sublists. [0..q-1], [q] and [q+1...array.size()].
+     */
+
     private int partition(List<A2Item> array, int high, int low){
         Item pivot = (Item) array.get(high);
-
 
         int i = low;
         int j = high - 1;
 
-        System.out.println("i at start: " + i);
-        System.out.println("j at start: " + j);
-
         Item temp;
 
         while(j >= i){
-            System.out.println("inside while");
             double iVal = array.get(i).getTransactionValue();
             double jVal = array.get(j).getTransactionValue();
 
             if(j == i && iVal > pivot.getTransactionValue()){
-                System.out.println("swap pivot");
                 temp = (Item) array.get(i);
                 array.set(i, pivot);
                 array.set(high, temp);
-                for (int k = 0; k < array.size(); k++){
-                    System.out.println("After partioning: " + array.get(k).toString());
-                }
                 return j;
             }
 
             if(iVal < pivot.getTransactionValue()){
                 i++;
-                System.out.println("i: " + i);
             }
             if(jVal > pivot.getTransactionValue()){
                 j--;
-                System.out.println("j: " + j);
             }
             if(iVal >= pivot.getTransactionValue() && jVal <= pivot.getTransactionValue()){
-                System.out.println("swap");
                 temp = (Item) array.get(i);
                 array.set(i, array.get(j));
                 array.set(j, temp);
@@ -136,18 +169,114 @@ public class Main implements A2Main{
         return j;
     }
 
+    /*
+     * heapSortByTransactionValue - Creates a Heap out of the inputed array and calls sort.
+     */
+
     @Override
     public long heapSortByTransactionValue(List<A2Item> array) {
-        return 0;
+
+        // For time measuring
+
+        long starttime = System.nanoTime();
+
+        Heap heap = new Heap(array);
+        heap.sort();
+
+        // Time spent
+
+        long timeDif = System.nanoTime() - starttime;
+
+        return timeDif;
     }
+
+    /*
+     * compareAlgorithms - Adds the name and time gathered from the different sorting algorithms to a Treeset.
+     * The sorted Treeset is then returned.
+     */
 
     @Override
     public TreeSet<Map.Entry<String, Long>> compareAlgorithms(List<A2Item> array) {
-        return null;
+        long BStime = bubbleSortByTransactionValue(array);
+        long QStime = quickSortByTransactionValue(array);
+        long HPsort = heapSortByTransactionValue(array);
+
+        Result bsResult = new Result("BubbleSort", BStime);
+        Result qsResult = new Result("QuickSort", QStime);
+        Result hpResult = new Result("HeapSort", HPsort);
+
+        TreeSet set = new TreeSet();
+        set.add(bsResult);
+        set.add(qsResult);
+        set.add(hpResult);
+
+        return set;
     }
+
+    /*
+     * Result - In order to add custom Objects to the TreeSet they have to implement Map.Entry as well as
+     * Comparable considering the fact that TreeSet uses Comparable.
+     */
+
+    class Result implements Map.Entry<String, Long>, Comparable<Map.Entry<String, Long>>{
+
+        private String name;
+        private long time;
+
+        public Result(String name, long time){
+            this.name = name;
+            this.time = time;
+        }
+
+        @Override
+        public String getKey() {
+            return this.name;
+        }
+
+        @Override
+        public Long getValue() {
+            return this.time;
+        }
+
+        @Override
+        public Long setValue(Long value) {
+            return this.time;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return false;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        @Override
+        public int compareTo(Map.Entry<String, Long> o) {
+            if (this.getValue() > o.getValue()){
+                return 1;
+            }
+            else if (this.getValue() < o.getValue()){
+                return -1;
+            }
+            return 0;
+        }
+
+        @Override
+        public String toString(){
+            return this.name + " " + this.getValue();
+        }
+    }
+
+    /*
+     * printResults - Simply calls println on the results.toString();
+     */
 
     @Override
     public void printResults(TreeSet<Map.Entry<String, Long>> results) {
-
+        System.out.println(results.toString());
     }
+
 }

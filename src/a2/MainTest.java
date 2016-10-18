@@ -1,6 +1,5 @@
 package a2;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +41,9 @@ public class MainTest {
         sortedList.add(fourthItem);
         sortedList.add(firstItem);
         sortedList.add(thirdItem);
+
     }
-/*
+
     @org.junit.Test
     public void testReadCSVFile() throws Exception {
         for (int i = 0; i < unsortedList.size(); i++){
@@ -59,34 +59,44 @@ public class MainTest {
         for (int i = 0; i < sortedList.size(); i++){
             assertEquals(sortedList.get(i).toString(), compareBubble.get(i).toString());
         }
-    }*/
+    }
 
     @org.junit.Test
     public void testQuickSortByTransactionValue() throws Exception {
         List<A2Item> compareQS = main.readCSVFile("csv.txt");
 
-        for(int i = 0; i < compareQS.size(); i++){
-           // System.out.println("Unsorted: " + compareQS.get(i).toString());
-            //assertEquals(sortedList.get(i).toString(), compareQS.get(i).toString());
-        }
-
         main.quickSortByTransactionValue(compareQS);
 
         for(int i = 0; i < compareQS.size(); i++){
-          //  System.out.println("Using QS: " + compareQS.get(i).toString());
-            //assertEquals(sortedList.get(i).toString(), compareQS.get(i).toString());
+            assertEquals(sortedList.get(i).toString(), compareQS.get(i).toString());
         }
     }
 
     @org.junit.Test
     public void testHeapSortByTransactionValue() throws Exception {
+        List <A2Item> compareHS = main.readCSVFile("csv.txt");
 
+        main.heapSortByTransactionValue(compareHS);
+
+        for(int i = 0; i < compareHS.size(); i++){
+            assertEquals(sortedList.get(i).toString(), compareHS.get(i).toString());
+        }
     }
+
+    /*
+     * Not quite sure how to test this one since the time will differ from different runs.
+     * It also seems that sometimes quicksort works faster and sometimes heapsort works faster.
+     */
 
     @org.junit.Test
     public void testCompareAlgorithms() throws Exception {
-
+        assertEquals(main.compareAlgorithms(unsortedList).size(), 3);
     }
+
+    /*
+     * Sort of the same problem here, i could try and to some sort of mocking to see if a System.out.println call
+     * has been made. But that seems quite unnecessary. 
+     */
 
     @org.junit.Test
     public void testPrintResults() throws Exception {
