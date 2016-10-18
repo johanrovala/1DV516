@@ -108,7 +108,10 @@ public class Item extends HashMap implements A2Item{
     @Override
     public boolean equals(Object obj) {
         if (obj != null){
-            return obj.hashCode() == this.hashCode();
+
+            // This feels strange
+
+            return ((Item) obj).getPerformer().equals(this.getPerformer()) && ((Item) obj).getDate().equals(this.getDate()) && Double.compare(((Item) obj).getTransactionValue(), this.getTransactionValue()) == 0 && ((Item) obj).hashCode() == this.hashCode();
         }
         else{
             return false;

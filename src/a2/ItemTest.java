@@ -28,7 +28,7 @@ public class ItemTest {
     @org.junit.Test
     public void testEquals(){
         Item dupe = new Item("Zack", 18.3, "2015-04-13");
-        assertTrue(item.equals(dupe));
+        assertTrue(dupe.equals(item));
     }
 
     /*
@@ -46,7 +46,7 @@ public class ItemTest {
             for (int k = 0; k < j; k++){
                 Item second = new Item(shuffle(str), 18.3, "null");
 
-                if(first.equals(second)){
+                if(first.hashCode() == second.hashCode()){
                     System.out.println("Collision");
                 }
             }
