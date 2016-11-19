@@ -188,6 +188,7 @@ public class Graph implements A3Graph{
         return topSort() != null;
     }
 
+
     private LinkedList<Node> topSort(){
 
         LinkedList<Node> sortedTopList = new LinkedList<>();
@@ -235,7 +236,36 @@ public class Graph implements A3Graph{
 
 
     @Override
-    public Map<Integer, Integer> shortestPath(int nodeItem) {
+    public Map<Integer, Integer> shortestPath(int nodeItem, ArrayList<Edge> edgeSubSet) {
+
+        // Check if node exists
+
+        if (!hasNode(nodeItem)){
+            System.err.println("Node is not part of graph");
+        }
+
+        // Check if inputed node has indegree nodes.
+
+        if (getNodeFromList(nodeItem).getInDegreeNodes().size() != 0){
+            System.err.println("Input node is not a 0-indegree node");
+            return null;
+        }
+
+        // Find all 0 outdegree nodes and add to list
+        LinkedList<Node> nodesToReach = new LinkedList<>();
+        for (int i = 0; i < nodes.size(); i++){
+            if (nodes.get(i).getOutDegreeNodes().size() == 0){
+                nodesToReach.add(nodes.get(i));
+            }
+        }
+
+        for (Node n : nodesToReach){
+            int computePath(getNodeFromList(nodeItem), n, edgeSubSet);
+        }
+
+
+
+
         return null;
     }
 

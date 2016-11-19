@@ -1,5 +1,6 @@
 package a3;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public interface A3Graph {
@@ -15,6 +16,6 @@ public interface A3Graph {
 	public boolean isConnected();
     public boolean isAcyclic();	
 	
-	public Map<Integer, Integer> shortestPath(int nodeItem);
+	public Map<Integer, Integer> shortestPath(int nodeItem, ArrayList<Edge> edgeSubSet);
 	
 }
